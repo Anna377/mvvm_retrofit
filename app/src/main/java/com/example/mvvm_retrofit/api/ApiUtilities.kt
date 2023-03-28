@@ -4,7 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiUtilities {
-    val BASE_URL = "https://newsapi.org/v2"
+//    val BASE_URL = "https://newsapi.org"
+    val BASE_URL ="https://randomuser.me"
 
     fun getInstance(): Retrofit {
         return Retrofit.Builder()

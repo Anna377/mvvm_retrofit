@@ -6,29 +6,28 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.mvvm_retrofit.api.ApiInterface
 import com.example.mvvm_retrofit.api.ApiUtilities
-import com.example.mvvm_retrofit.repository.ArticlesRepository
-import com.example.mvvm_retrofit.viewmodel.ArticlesViewModel
-import com.example.mvvm_retrofit.viewmodel.ArticlesViewModelFactory
-import retrofit2.create
+import com.example.mvvm_retrofit.repository.UsersRepository
+import com.example.mvvm_retrofit.viewmodel.UsersViewModel
+import com.example.mvvm_retrofit.viewmodel.UsersViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var articlesViewModel: ArticlesViewModel
+    private lateinit var usersViewModel: UsersViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val apiInterface = ApiUtilities.getInstance().create(ApiInterface::class.java)
-        val articlesRepository = ArticlesRepository(apiInterface)
+        val usersRepository = UsersRepository(apiInterface)
 
-        articlesViewModel =
-            ViewModelProvider(this, ArticlesViewModelFactory(articlesRepository)).get(
-                ArticlesViewModel::class.java
+        usersViewModel =
+            ViewModelProvider(this, UsersViewModelFactory(usersRepository)).get(
+                UsersViewModel::class.java
             )
 
-        articlesViewModel.articles.observe(this) { it ->
-            it.articles.iterator().forEach{ article ->
-                Log.d("TAG1", "name: ${article.title}: ${article.url}")
+        usersViewModel.users.observe(this) { it ->
+            it.results.iterator().forEach {user ->
+                Log.d("TAG1", "name: ${user.name}: ${user.email}")
 
             }
 
